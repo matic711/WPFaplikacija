@@ -6,17 +6,34 @@
         xmlns:local="clr-namespace:WPFaplikacija"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="400">
+    <Window.Resources>
+        <ImageBrush x:Key="WindowBackground" ImageSource="C:\Users\vss\source\repos\WPFaplikacija\WPFaplikacija\Images\background.jpg"/>
+    </Window.Resources>
+    <Window.Background>
+        <StaticResource ResourceKey="WindowBackground"/>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid>
-            <Button x:Name="btn1" Content="submit" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btn1_Click"/> 
-
-
-
+            <Button x:Name="btn1" Content="Submit" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btn1_Click" Margin="49,268,0,0" Background="White" FontFamily="Arial Black" />
+            <TextBlock x:Name="ime" Text="Ime" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,98,0,0" FontSize="16" Foreground="White" FontFamily="Arial Black"/>
+            <TextBox x:Name="tb1" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,130,0,0"/>
+            <TextBlock x:Name="geslo" Text="Geslo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,181,0,0" FontSize="16" Foreground="White" FontFamily="Arial Black"/>
+            <PasswordBox x:Name="tb2" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,217,0,0"/>
+            <Button x:Name="btn2" Content="Registracija" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btn1_Click" Margin="176,268,0,0" Background="White" FontFamily="Arial Black"  />
+            <Label x:Name="opozorilo" Content="Pozdravljeni, če ste nov uporabnik se prosim registrirajte!!"    VerticalAlignment="Bottom"    FontSize="12" FontFamily="Arial Black" Background="Transparent" Foreground="White" Margin="10,0,-58,90" RenderTransformOrigin="0.5,0.5" Height="26"  >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.221"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
         </Grid>
-
     </Grid>
 </Window>

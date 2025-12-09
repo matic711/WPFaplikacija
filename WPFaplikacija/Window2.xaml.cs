@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,32 +8,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPFaplikacija
 {
-    //patrik
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class MainWindow : Window
-
+    public partial class Window2 : Window
     {
-        
-        public MainWindow()
+        public Window2()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
+         
         }
 
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
-            Window2 regWindow = new Window2(); 
-            regWindow.Show();
-            this.Hide();
+            // Dodajte logiko za obravnavo klika gumba
+            MessageBox.Show("Gumb v Window2 je bil kliknjen!");
         }
-
-        //test
     }
 }
