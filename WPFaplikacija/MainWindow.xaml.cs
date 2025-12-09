@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 
 namespace WPFaplikacija
 {
+    //patrik
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
