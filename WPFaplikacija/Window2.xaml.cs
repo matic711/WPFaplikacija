@@ -20,7 +20,6 @@ namespace WPFaplikacija
         public Window2()
         {
             InitializeComponent();
-
         }
 
         private void btn1_Click(object sender, RoutedEventArgs e)
@@ -28,8 +27,6 @@ namespace WPFaplikacija
             // Dodajte logiko za obravnavo klika gumba
             MessageBox.Show("Gumb v Window2 je bil kliknjen!");
         }
-<<<<<<< HEAD
-
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
@@ -38,8 +35,5 @@ namespace WPFaplikacija
 
             this.Close();
         }
-
-=======
->>>>>>> a4a2062bf1ab6b5b5767354fc974dd31283a3327
     }
 }
