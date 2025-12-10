@@ -6,7 +6,73 @@
         xmlns:local="clr-namespace:WPFaplikacija"
         mc:Ignorable="d"
         Title="drugoOkno" Height="450" Width="800">
-    <Grid>
-        
+    <Window.Resources>
+        <ImageBrush x:Key="WindowBackground" ImageSource="/Images/background.jpg"/>
+    </Window.Resources>
+    <Window.Background>
+        <StaticResource ResourceKey="WindowBackground"/>
+    </Window.Background>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LEVI DEL – VNOS PODATKOV -->
+        <StackPanel Grid.Column="0" Margin="10,10,423,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="261">
+            <TextBlock Text="ID zaposlenega:" Foreground="White"/>
+            <TextBox x:Name="txtID"/>
+
+            <TextBlock Text="Ime:" Foreground="White"/>
+            <TextBox x:Name="txtIme"/>
+
+            <TextBlock Text="Priimek:" Foreground="White"/>
+            <TextBox x:Name="txtPriimek"/>
+
+            <TextBlock Text="Datum rojstva:" Foreground="White"/>
+            <DatePicker x:Name="dpDatumRojstva" />
+
+            <TextBlock Text="Delovno mesto:" Foreground="White"/>
+            <ComboBox x:Name="cbDelovnoMesto" Width="150" SelectionChanged="cbDelovnoMesto_SelectionChanged">
+                <ComboBoxItem Content="Programer"/>
+                <ComboBoxItem Content="Administrator"/>
+                <ComboBoxItem Content="Vodja oddelka"/>
+                <ComboBoxItem Content="Računovodja"/>
+            </ComboBox>
+
+            <TextBlock Text="Osnovna bruto plača:" Foreground="White"/>
+            <TextBox x:Name="txtPlaca"/>
+
+            <!-- GUMBI -->
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <Button Content="Dodaj" Width="80" Margin="5" Click="Dodaj_Click"/>
+                <Button Content="Uredi" Width="80" Margin="5" Click="Uredi_Click"/>
+                <Button Content="Izbriši" Width="80" Margin="5" Click="Izbrisi_Click"/>
+                <Button Content="Počisti" Width="79" Margin="5" Click="Pocisti_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.177"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- DESNI DEL – DATA GRID -->
+        <DataGrid x:Name="dgZaposleni" Grid.Column="1" Margin="50,10,10,29"
+                  AutoGenerateColumns="False"
+                  SelectionChanged="dgZaposleni_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="60"/>
+                <DataGridTextColumn Header="Ime" Binding="{Binding Ime}"/>
+                <DataGridTextColumn Header="Priimek" Binding="{Binding Priimek}"/>
+                <DataGridTextColumn Header="Datum rojstva" Binding="{Binding DatumRojstva, StringFormat=d}"/>
+                <DataGridTextColumn Header="Delovno mesto" Binding="{Binding DelovnoMesto}"/>
+                <DataGridTextColumn Header="Plača" Binding="{Binding Placa}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
