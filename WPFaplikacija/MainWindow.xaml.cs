@@ -22,7 +22,8 @@ namespace WPFaplikacija
         public MainWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
+            
+
         }
 
         private void btn1_Click(object sender, RoutedEventArgs e)
@@ -39,7 +40,12 @@ namespace WPFaplikacija
                 tb.FontSize = tb.ActualHeight / 2.5;
         }
 
-        
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(); // zapre okno nov x style, da app bol zgleda
+        }
+
+
 
         //test
     }

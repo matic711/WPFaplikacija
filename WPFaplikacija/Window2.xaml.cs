@@ -20,6 +20,8 @@ namespace WPFaplikacija
         public Window2()
         {
             InitializeComponent();
+            
+
         }
 
         private void btn1_Click(object sender, RoutedEventArgs e)
@@ -33,6 +35,11 @@ namespace WPFaplikacija
             if (this.Owner != null)
                 this.Owner.Show();  // pokaže nazaj login okno
 
+            this.Close();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
             this.Close();
         }
     }
