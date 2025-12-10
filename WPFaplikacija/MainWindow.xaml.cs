@@ -28,21 +28,27 @@ namespace WPFaplikacija
 
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
-            Window2 regWindow = new Window2();
-            regWindow.Owner = this;     
-            regWindow.Show();
-            this.Hide();
+            
         }
 
-        private void tbUser_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (sender is TextBox tb)
-                tb.FontSize = tb.ActualHeight / 2.5;
-        }
+
+
+        
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close(); // zapre okno nov x style, da app bol zgleda
+        }
+
+        private void btn2_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 regWindow = new Window2();
+            Visibility = Visibility.Hidden;
+            regWindow.Owner = this;
+            regWindow.Show();
+            this.Hide();
+
+
         }
 
 

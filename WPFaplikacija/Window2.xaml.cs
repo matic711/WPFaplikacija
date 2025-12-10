@@ -26,21 +26,22 @@ namespace WPFaplikacija
 
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
-            // Dodajte logiko za obravnavo klika gumba
-            MessageBox.Show("Gumb v Window2 je bil kliknjen!");
+            if (this.Owner != null)
+                this.Owner.Show(); //  prav tako prilaze glavno okkno
+            this.Close();
         }
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
             if (this.Owner != null)
-                this.Owner.Show();  // pokaže nazaj login okno
+                this.Owner.Show();  // se vrne na glavno okno
 
             this.Close();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Close(); //zapre aplikacijo
         }
     }
 }
