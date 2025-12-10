@@ -36,7 +36,9 @@ namespace WPFaplikacija
             if (this.Owner != null)
                 this.Owner.Show();  // pokaže nazaj login okno
 
-            this.Close(); //b
+            this.Close(); //b 
+
+            ////jjjjjjjjooo
         }
 
 
