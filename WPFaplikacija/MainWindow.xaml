@@ -64,7 +64,7 @@
                        Foreground="White"
                        FontFamily="Arial Black"
                        Margin="0,0,0,4"/>
-            <TextBox x:Name="tb1"
+            <TextBox x:Name="tbName"
                      Height="28"
                      FontSize="22"
                      VerticalContentAlignment="Center"
@@ -75,7 +75,7 @@
                        Foreground="White"
                        FontFamily="Arial Black"
                        Margin="0,0,0,4"/>
-            <PasswordBox x:Name="tb2"
+            <PasswordBox x:Name="tbgeslo1"
                          Height="28"
                          Margin="0,0,0,20"
                         FontSize="22"/>

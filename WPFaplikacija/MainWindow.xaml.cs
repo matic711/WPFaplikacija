@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace WPFaplikacija
 {
@@ -28,6 +30,44 @@ namespace WPFaplikacija
 
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
+            string napake = "";
+            string pattern  = @"^[a-zA-ZšŠžŽčČćĆđĐ\s]+$";
+
+            if (string.IsNullOrWhiteSpace(tbName.Text))
+            {
+                napake += "Ime nesme biti prazno \n";
+
+
+
+            }
+            else if (!Regex.IsMatch(tbName.Text, pattern))
+            {
+                napake += "Ime lahko vsebuje samo crke\n";
+            }
+
+            if (string.IsNullOrWhiteSpace(tbgeslo1.Password))
+            {
+                napake += "Prosim vnesite geslo\n";
+            }
+
+            
+            
+
+                if (napake == "")
+                {
+                    this.Close();
+                    drugoOkno appwindow = new drugoOkno();
+                    appwindow.Show();
+
+                    MessageBox.Show("Pozdravljeni", "Preverjanje",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Napake:\n\n" + napake, "Preverjanje",
+                                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
             
         }
 

@@ -68,16 +68,24 @@
             <Label Content="Email" Foreground="White" FontSize="16" FontFamily="Arial Black"/>
             <TextBox x:Name="tbEmail" Height="30" FontSize="22"/>
 
-            <Label Content="Ime" Foreground="White" FontSize="16" FontFamily="Arial Black" Margin="0,10,0,0"/>
+            <Label Content="Ime in Priimek" Foreground="White" FontSize="16" FontFamily="Arial Black" Margin="0,10,0,0"/>
             <TextBox x:Name="tbName" Height="30" FontSize="22"/>
 
             <Label Content="Geslo" Foreground="White" FontSize="16" FontFamily="Arial Black" Margin="0,10,0,0"/>
-            <PasswordBox x:Name="tbPassword" Height="30" FontSize="22"/>
+            <PasswordBox x:Name="tbgeslo1" Height="30" FontSize="22"/>
 
             <Label Content="Ponovno upišite geslo" Foreground="White" FontSize="16" FontFamily="Arial Black" Margin="0,10,0,0"/>
-            <PasswordBox x:Name="tbPasswordRepeat" Height="30" FontSize="22"/>
+            <PasswordBox x:Name="tbgeslo2" Height="30" FontSize="22"/>
 
-            <Label x:Name="DelovnoMesto" Content="Delovno mesto" Foreground="White" FontSize="16" FontFamily="Arial Black" Margin="0,10,0,0"/>
+            <Label x:Name="DatumRojstva" Content="Datum rojstva (dd.MM.yyyy)" Foreground="White" FontSize="16" FontFamily="Arial Black" Margin="0,10,0,0"/>
+            <TextBox   x:Name="DatumRD"   Height="30" FontSize="22" />
+            
+            
+            
+            
+            
+
+                <Label x:Name="DelovnoMesto" Content="Delovno mesto" Foreground="White" FontSize="16" FontFamily="Arial Black" Margin="0,10,0,0"/>
             <ComboBox x:Name="drop1" Height="30" FontSize="22" 
                       Background="#E6EEFF"  
                       Foreground="#0B1220" 
