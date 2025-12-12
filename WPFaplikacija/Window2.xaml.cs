@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace WPFaplikacija
 {
@@ -78,13 +80,55 @@ namespace WPFaplikacija
             {
                 napake += "Gesli se ne ujemata!\n";
             }
-            
+
+            using (var db = new AppDbContext())
+            {
+                db.Database.EnsureCreated();
+                if (db.Users.Any(u => u.Email == tbEmail.Text))
+                {
+                    napake += "Ta email je že registriran!\n";
+                }
+
+            }
+
+
 
             if (napake == "")
             {
-                this.Close();
-                drugoOkno   appwindow = new drugoOkno();
+                
+
+                using (var db = new AppDbContext())
+                {
+                    db.Database.EnsureCreated();
+                    var user = new User
+                    {
+                        Email = tbEmail.Text,
+                        FullName = tbName.Text,
+                        Password = tbgeslo1.Password, 
+                    };
+                    db.Users.Add(user);
+                    try
+                    {
+                        db.SaveChanges();          
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("DB napaka: " + ex.Message, "SQLite",
+                                        MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    
+                    
+
+                }
+
+                var appwindow = new drugoOkno();
+                Application.Current.MainWindow = appwindow;
                 appwindow.Show();
+
+                this.Close();
+               
 
                 MessageBox.Show("Pozdravljeni", "Preverjanje",
                                 MessageBoxButton.OK, MessageBoxImage.Information);

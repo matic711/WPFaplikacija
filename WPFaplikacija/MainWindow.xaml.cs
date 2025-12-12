@@ -10,6 +10,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace WPFaplikacija
 {
@@ -50,30 +52,48 @@ namespace WPFaplikacija
                 napake += "Prosim vnesite geslo\n";
             }
 
-            
-            
 
-                if (napake == "")
+
+
+            if (napake == "")
+            {
+                var appwindow = new drugoOkno();
+
+
+                using (var db = new AppDbContext())
                 {
-                    this.Close();
-                    drugoOkno appwindow = new drugoOkno();
-                    appwindow.Show();
+                    
+                    var user = db.Users
+                        .FirstOrDefault(u => u.FullName == tbName.Text && u.Password == tbgeslo1.Password);
 
-                    MessageBox.Show("Pozdravljeni", "Preverjanje",
+                    if (user == null)
+                    {
+                        MessageBox.Show("Napačno ime ali geslo!", "Preverjanje",
+                                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    MessageBox.Show($"Prijava uspešna! Dobrodošel {user.FullName}", "Preverjanje",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Napake:\n\n" + napake, "Preverjanje",
-                                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
 
-            
+                    Application.Current.MainWindow = appwindow;
+                    appwindow.Show();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Napake:\n\n" + napake, "Preverjanje",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+
+
         }
 
 
 
-        
+
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
