@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -10,8 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using WPFaplikacija.Models;
+using static WPFaplikacija.Services.skladisce;
 
 namespace WPFaplikacija
 {
@@ -26,9 +29,19 @@ namespace WPFaplikacija
             
 
         }
+        private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
 
 
 
+
+
+       
+
+       
 
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
@@ -81,54 +94,43 @@ namespace WPFaplikacija
                 napake += "Gesli se ne ujemata!\n";
             }
 
-            using (var db = new AppDbContext())
-            {
-                db.Database.EnsureCreated();
-                if (db.Users.Any(u => u.Email == tbEmail.Text))
-                {
-                    napake += "Ta email je že registriran!\n";
-                }
 
+            if (Skladisce.EmailExists(tbEmail.Text))
+            {
+                napake += "Ta email je že registriran!\n";
             }
+
 
 
 
             if (napake == "")
             {
-                
 
-                using (var db = new AppDbContext())
+
+                var user = new User
                 {
-                    db.Database.EnsureCreated();
-                    var user = new User
-                    {
-                        Email = tbEmail.Text,
-                        FullName = tbName.Text,
-                        Password = tbgeslo1.Password, 
-                    };
-                    db.Users.Add(user);
-                    try
-                    {
-                        db.SaveChanges();          
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("DB napaka: " + ex.Message, "SQLite",
-                                        MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                    Email = tbEmail.Text,
+                    FullName = tbName.Text,
+                    Password = tbgeslo1.Password
+                };
+                Skladisce.Users.Add(user);
 
+                
+                var emp = new zaposleni
+                {
+                    Id = Skladisce.NextId(),
+                    Email = tbEmail.Text,
+                    FullName = tbName.Text,
+                    Placa = 0m,
                     
-                    
-
-                }
+                    Koda = Skladisce.CreateUniqueEmployeeCode() 
+                };
+                Skladisce.Employees.Add(emp);
 
                 var appwindow = new drugoOkno();
                 Application.Current.MainWindow = appwindow;
                 appwindow.Show();
-
                 this.Close();
-               
 
                 MessageBox.Show("Pozdravljeni", "Preverjanje",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -138,17 +140,10 @@ namespace WPFaplikacija
                 MessageBox.Show("Napake:\n\n" + napake, "Preverjanje",
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
 
-
-
-
-
-
-                
+                // if (this.Owner != null)
+                //  this.Owner.Show(); 
+                //this.Close();
             }
-
-           // if (this.Owner != null)
-              //  this.Owner.Show(); 
-            //this.Close();
         }
 
 

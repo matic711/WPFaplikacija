@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -26,6 +27,17 @@ namespace WPFaplikacija
             SeznamZaposlenih = new ObservableCollection<Zaposleni>();
             dgZaposleni.ItemsSource = SeznamZaposlenih;
         }
+
+        
+
+       
+
+       
+
+        
+        
+     
+
         private bool PreveriVnos()
         {
             if (string.IsNullOrWhiteSpace(txtID.Text) ||

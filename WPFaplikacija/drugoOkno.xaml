@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:WPFaplikacija"
         mc:Ignorable="d"
         Topmost="True"
-        WindowState="maximized"
-        WindowStyle="none"
-        Title="drugoOkno" Height="450" Width="800">
+        
+        
+        Title="drugoOkno" Height="700" Width="1100">
     <Window.Resources>
         <ImageBrush x:Key="WindowBackground" ImageSource="/Images/background.jpg"/>
     </Window.Resources>

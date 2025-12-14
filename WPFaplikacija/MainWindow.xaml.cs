@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,8 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using static WPFaplikacija.Services.skladisce;
 
 namespace WPFaplikacija
 {
@@ -29,6 +30,12 @@ namespace WPFaplikacija
             
 
         }
+        private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
+
 
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
@@ -57,29 +64,32 @@ namespace WPFaplikacija
 
             if (napake == "")
             {
-                var appwindow = new drugoOkno();
-
-
-                using (var db = new AppDbContext())
+                bool ok = Skladisce.LoginByFullNameAndPassword(tbName.Text, tbgeslo1.Password);
+                if (!ok)
                 {
-                    
-                    var user = db.Users
-                        .FirstOrDefault(u => u.FullName == tbName.Text && u.Password == tbgeslo1.Password);
-
-                    if (user == null)
-                    {
-                        MessageBox.Show("Napačno ime ali geslo!", "Preverjanje",
-                                        MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
-
-                    MessageBox.Show($"Prijava uspešna! Dobrodošel {user.FullName}", "Preverjanje",
-                                    MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    Application.Current.MainWindow = appwindow;
-                    appwindow.Show();
-                    this.Close();
+                    MessageBox.Show("Napačno ime ali geslo!", "Preverjanje",
+                                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
                 }
+
+                MessageBox.Show($"Prijava uspešna! Dobrodošel {tbName.Text}", "Preverjanje",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+
+                var appwindow = new drugoOkno();
+                Application.Current.MainWindow = appwindow;
+                appwindow.Show();
+                this.Close();
+
+
+
+
+
+
+
+
+
+
+
             }
             else
             {
