@@ -127,12 +127,12 @@ namespace WPFaplikacija
                 };
                 Skladisce.Employees.Add(emp);
 
-                var appwindow = new drugoOkno();
+                var appwindow = new MainWindow();
                 Application.Current.MainWindow = appwindow;
                 appwindow.Show();
                 this.Close();
 
-                MessageBox.Show("Pozdravljeni", "Preverjanje",
+                MessageBox.Show("Registracija uspešna", "Preverjanje",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else

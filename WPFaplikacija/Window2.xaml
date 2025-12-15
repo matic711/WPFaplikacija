@@ -61,7 +61,7 @@
         Height="36"
         FontSize="20"
         HorizontalAlignment="Right"
-        VerticalAlignment="Center"
+        VerticalAlignment="Top"
         Margin="0,0,10,0"
         Click="CloseButton_Click" />
 

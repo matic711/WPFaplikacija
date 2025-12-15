@@ -75,10 +75,12 @@ namespace WPFaplikacija
                 MessageBox.Show($"Prijava uspešna! Dobrodošel {tbName.Text}", "Preverjanje",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
-                var appwindow = new drugoOkno();
-                Application.Current.MainWindow = appwindow;
+                 drugoOkno appwindow = new drugoOkno();
+                appwindow.Owner = this;
                 appwindow.Show();
-                this.Close();
+                this.Hide();
+
+                
 
 
 
@@ -113,7 +115,6 @@ namespace WPFaplikacija
         private void btn2_Click(object sender, RoutedEventArgs e)
         {
             Window2 regWindow = new Window2();
-            Visibility = Visibility.Hidden;
             regWindow.Owner = this;
             regWindow.Show();
             this.Hide();

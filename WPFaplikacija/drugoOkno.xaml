@@ -6,23 +6,80 @@
         xmlns:local="clr-namespace:WPFaplikacija"
         mc:Ignorable="d"
         Topmost="True"
-        
-        
-        Title="drugoOkno" Height="700" Width="1100">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+       Title="drugoOkno" Height="700" Width="1100"
+        WindowStyle="None">
+
+
+
     <Window.Resources>
         <ImageBrush x:Key="WindowBackground" ImageSource="/Images/background.jpg"/>
+        <Style x:Key="FlatButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Arial Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF4B4B"/>
+                    <Setter Property="Background" Value="#222"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
+
+
     <Window.Background>
         <StaticResource ResourceKey="WindowBackground"/>
     </Window.Background>
-    <Grid Margin="10">
+
+
+
+
+    <Grid >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="648"/>
         </Grid.ColumnDefinitions>
 
+
+        <Border Grid.Row="0" Background="#22000000" MouseLeftButtonDown="TopBar_MouseLeftButtonDown"  Grid.ColumnSpan="2"/>
+        <Button Content="✖" Grid.Row="0"
+            Style="{StaticResource FlatButton}"
+            Width="40"
+            Height="36"
+            FontSize="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="0,0,10,0"
+            Click="CloseButton_Click" RenderTransformOrigin="4,-5.149" Grid.Column="1" 
+                 Panel.ZIndex="1"/>
+
+
         <!-- LEVI DEL – VNOS PODATKOV -->
-        <StackPanel Grid.Column="0" Margin="10,10,423,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="261">
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,30,455,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="454">
             <TextBlock Text="ID zaposlenega:" Foreground="White"/>
             <TextBox x:Name="txtID"/>
 
@@ -37,10 +94,10 @@
 
             <TextBlock Text="Delovno mesto:" Foreground="White"/>
             <ComboBox x:Name="cbDelovnoMesto" Width="150" SelectionChanged="cbDelovnoMesto_SelectionChanged">
-                <ComboBoxItem Content="Programer"/>
-                <ComboBoxItem Content="Administrator"/>
-                <ComboBoxItem Content="Vodja oddelka"/>
-                <ComboBoxItem Content="Računovodja"/>
+                <ComboBoxItem Content="Voda"/>
+                <ComboBoxItem Content="Natakar"/>
+                <ComboBoxItem Content="Kuhar"/>
+                
             </ComboBox>
 
             <TextBlock Text="Osnovna bruto plača:" Foreground="White"/>
@@ -60,12 +117,14 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </Button.RenderTransform>
+
                 </Button>
+                <Button Content="Nazaj" Width="80" Margin="5" Click="Nazaj_Click"/>
             </StackPanel>
         </StackPanel>
 
         <!-- DESNI DEL – DATA GRID -->
-        <DataGrid x:Name="dgZaposleni" Grid.Column="1" Margin="50,10,10,29"
+        <DataGrid x:Name="dgZaposleni" Grid.Column="1" Grid.Row="1" Margin="30,26,10,29"
                   AutoGenerateColumns="False"
                   SelectionChanged="dgZaposleni_SelectionChanged">
             <DataGrid.Columns>

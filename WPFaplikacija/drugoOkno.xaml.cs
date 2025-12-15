@@ -28,15 +28,20 @@ namespace WPFaplikacija
             dgZaposleni.ItemsSource = SeznamZaposlenih;
         }
 
-        
+        private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
 
-       
 
-       
 
-        
-        
-     
+
+
+
+
+
+
 
         private bool PreveriVnos()
         {
@@ -177,6 +182,27 @@ namespace WPFaplikacija
         private void TxtPlaca_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Nazaj_Click(object sender, RoutedEventArgs e)
+        {
+           
+            
+
+            if (this.Owner != null)
+                this.Owner.Show();  
+
+            this.Close();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
