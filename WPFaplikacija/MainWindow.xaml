@@ -76,7 +76,7 @@
 
 
 
-            <TextBlock Text="Ime in Priimek"
+            <TextBlock Text="Email"
                        FontSize="16"
                        Foreground="White"
                        FontFamily="Arial Black"
