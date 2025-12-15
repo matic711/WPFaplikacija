@@ -40,18 +40,18 @@ namespace WPFaplikacija
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
             string napake = "";
-            string pattern  = @"^[a-zA-ZšŠžŽčČćĆđĐ\s]+$";
+            string empattern  = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
-            if (string.IsNullOrWhiteSpace(tbName.Text))
+            if (string.IsNullOrWhiteSpace(email.Text))
             {
                 napake += "Ime nesme biti prazno \n";
 
 
 
             }
-            else if (!Regex.IsMatch(tbName.Text, pattern))
+            else if (!Regex.IsMatch(email.Text, empattern))
             {
-                napake += "Ime lahko vsebuje samo crke\n";
+                napake += "Pravilno vpišite email\n";
             }
 
             if (string.IsNullOrWhiteSpace(tbgeslo1.Password))
@@ -64,7 +64,7 @@ namespace WPFaplikacija
 
             if (napake == "")
             {
-                bool ok = Skladisce.LoginByFullNameAndPassword(tbName.Text, tbgeslo1.Password);
+                bool ok = Skladisce.LoginByFullNameAndPassword(email.Text, tbgeslo1.Password);
                 if (!ok)
                 {
                     MessageBox.Show("Napačno ime ali geslo!", "Preverjanje",
@@ -72,7 +72,7 @@ namespace WPFaplikacija
                     return;
                 }
 
-                MessageBox.Show($"Prijava uspešna! Dobrodošel {tbName.Text}", "Preverjanje",
+                MessageBox.Show($"Prijava uspešna! Dobrodošli ", "Preverjanje",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
                  drugoOkno appwindow = new drugoOkno();

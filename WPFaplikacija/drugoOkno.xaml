@@ -79,8 +79,8 @@
 
 
         <!-- LEVI DEL – VNOS PODATKOV -->
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,30,455,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="454">
-            <TextBlock Text="ID zaposlenega:" Foreground="White"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,30,0,0" VerticalAlignment="Top" Height="454">
+            <TextBlock Text="ID zaposlenega:" Foreground="White" Height="17" Width="625"/>
             <TextBox x:Name="txtID"/>
 
             <TextBlock Text="Ime:" Foreground="White"/>
@@ -94,10 +94,10 @@
 
             <TextBlock Text="Delovno mesto:" Foreground="White"/>
             <ComboBox x:Name="cbDelovnoMesto" Width="150" SelectionChanged="cbDelovnoMesto_SelectionChanged">
-                <ComboBoxItem Content="Voda"/>
+                <ComboBoxItem Content="Vodja"/>
                 <ComboBoxItem Content="Natakar"/>
                 <ComboBoxItem Content="Kuhar"/>
-                
+
             </ComboBox>
 
             <TextBlock Text="Osnovna bruto plača:" Foreground="White"/>
@@ -124,17 +124,39 @@
         </StackPanel>
 
         <!-- DESNI DEL – DATA GRID -->
-        <DataGrid x:Name="dgZaposleni" Grid.Column="1" Grid.Row="1" Margin="30,26,10,29"
-                  AutoGenerateColumns="False"
-                  SelectionChanged="dgZaposleni_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="60"/>
-                <DataGridTextColumn Header="Ime" Binding="{Binding Ime}"/>
-                <DataGridTextColumn Header="Priimek" Binding="{Binding Priimek}"/>
-                <DataGridTextColumn Header="Datum rojstva" Binding="{Binding DatumRojstva, StringFormat=d}"/>
-                <DataGridTextColumn Header="Delovno mesto" Binding="{Binding DelovnoMesto}"/>
-                <DataGridTextColumn Header="Plača" Binding="{Binding Placa}"/>
-            </DataGrid.Columns>
+        <Grid Grid.Column="1" Grid.Row="1" Margin="30,26,10,29">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <TextBox x:Name="txtIsci"
+                 Width="220"
+                 ToolTip="Išči po imenu, priimku ali delovnem mestu"
+                 TextChanged="txtIsci_TextChanged"/>
+                <ComboBox x:Name="cmbFilterMesto"
+                  Width="160"
+                  Margin="8,0,0,0"
+                  SelectionChanged="cmbFilterMesto_SelectionChanged"/>
+                <Button x:Name="btnResetFiltri"
+                Content="Počisti filtre"
+                Margin="8,0,0,0"
+                Click="btnResetFiltri_Click"/>
+            </StackPanel>
+
+            <DataGrid x:Name="dgZaposleni" Grid.Row="1"
+              AutoGenerateColumns="False"
+              SelectionChanged="dgZaposleni_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="60"/>
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Ime}"/>
+                    <DataGridTextColumn Header="Priimek" Binding="{Binding Priimek}"/>
+                    <DataGridTextColumn Header="Datum rojstva" Binding="{Binding DatumRojstva, StringFormat=d}"/>
+                    <DataGridTextColumn Header="Delovno mesto" Binding="{Binding DelovnoMesto}"/>
+                    <DataGridTextColumn Header="Plača" Binding="{Binding Placa}"/>
+                </DataGrid.Columns>
         </DataGrid>
+        </Grid>
     </Grid>
 </Window>

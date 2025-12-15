@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,11 +23,20 @@ namespace WPFaplikacija
     public partial class drugoOkno : Window
     {
         public ObservableCollection<Zaposleni> SeznamZaposlenih { get; set; }
+
+        private ICollectionView _view;
+
         public drugoOkno()
         {
             InitializeComponent();
             SeznamZaposlenih = new ObservableCollection<Zaposleni>();
             dgZaposleni.ItemsSource = SeznamZaposlenih;
+            _view = CollectionViewSource.GetDefaultView(dgZaposleni.ItemsSource);
+            _view.Filter = Filtriraj;
+
+
+            OsveziSeznamDelovnihMest();
+            SeznamZaposlenih.CollectionChanged += (s, e) => OsveziSeznamDelovnihMest();
         }
 
         private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -33,6 +44,7 @@ namespace WPFaplikacija
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
 
 
 
@@ -158,6 +170,58 @@ namespace WPFaplikacija
             public DateTime DatumRojstva { get; set; }
 
         }
+        private void OsveziSeznamDelovnihMest()
+        {
+            var mesta = SeznamZaposlenih
+                .Select(z => z.DelovnoMesto)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+
+            // Prvi element = vsi
+            mesta.Insert(0, "— Vsa delovna mesta —");
+
+            cmbFilterMesto.ItemsSource = mesta;
+
+            if (cmbFilterMesto.SelectedIndex < 0 && cmbFilterMesto.Items.Count > 0)
+                cmbFilterMesto.SelectedIndex = 0;
+        }
+
+        private bool Filtriraj(object obj)
+        {
+            if (obj is not Zaposleni z) return false;
+
+            // tekstovni filter
+            var q = (txtIsci?.Text ?? "").Trim();
+            bool textOk =
+                string.IsNullOrEmpty(q) ||
+                (z.Ime?.IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                (z.Priimek?.IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                (z.DelovnoMesto?.IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            // filter po delovnem mestu
+            var izbran = cmbFilterMesto?.SelectedItem as string;
+            bool mestoOk =
+                string.IsNullOrEmpty(izbran) ||
+                izbran.StartsWith("—") ||
+                string.Equals(z.DelovnoMesto, izbran, StringComparison.OrdinalIgnoreCase);
+
+            return textOk && mestoOk;
+        }
+
+        private void txtIsci_TextChanged(object sender, TextChangedEventArgs e) => _view?.Refresh();
+
+        private void cmbFilterMesto_SelectionChanged(object sender, SelectionChangedEventArgs e) => _view?.Refresh();
+
+        private void btnResetFiltri_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtIsci != null) txtIsci.Text = "";
+            if (cmbFilterMesto != null && cmbFilterMesto.Items.Count > 0)
+                cmbFilterMesto.SelectedIndex = 0;
+            _view?.Refresh();
+        }
+
 
         private void TxtID_TextChanged(object sender, TextChangedEventArgs e)
         {

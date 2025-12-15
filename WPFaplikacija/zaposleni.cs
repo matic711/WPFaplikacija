@@ -12,5 +12,7 @@ namespace WPFaplikacija.Models
         public string FullName { get; set; }
         public decimal Placa { get; set; }
         public string Koda { get; set; }
+
+        public string Password { get; set; }
     }
 }

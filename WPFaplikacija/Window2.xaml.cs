@@ -107,7 +107,7 @@ namespace WPFaplikacija
             {
 
 
-                var user = new User
+                var user = new zaposleni
                 {
                     Email = tbEmail.Text,
                     FullName = tbName.Text,
@@ -116,16 +116,7 @@ namespace WPFaplikacija
                 Skladisce.Users.Add(user);
 
                 
-                var emp = new zaposleni
-                {
-                    Id = Skladisce.NextId(),
-                    Email = tbEmail.Text,
-                    FullName = tbName.Text,
-                    Placa = 0m,
-                    
-                    Koda = Skladisce.CreateUniqueEmployeeCode() 
-                };
-                Skladisce.Employees.Add(emp);
+               
 
                 var appwindow = new MainWindow();
                 Application.Current.MainWindow = appwindow;

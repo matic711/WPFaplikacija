@@ -76,14 +76,14 @@
 
 
 
-            <TextBlock Text="Ime"
+            <TextBlock Text="Ime in Priimek"
                        FontSize="16"
                        Foreground="White"
                        FontFamily="Arial Black"
                        Margin="0,0,0,4"
                        Width="250"/>
          
-                <TextBox x:Name="tbName"
+                <TextBox x:Name="email"
                      Height="28"
                      FontSize="22"
                      VerticalContentAlignment="Center"
